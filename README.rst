@@ -1,14 +1,11 @@
 TODO:
-  * bibliografia (czy będzie coś więcej?) - jednym słowem o każdej pozycji narazie, za tydzień analiza
   * dokładny podział na tygodnie
   * podział pracy
 
 ===============
 Design proposal
 ===============
-Projekt ma za zadanie przeprowadzić ewaluację dostępnych rozwiązań detekcji sztucznie wygenerowanej muzyki. Badania będą prowadzone pod kątem wyjaśnialności otrzymywanych predykcji, ponieważ dostępne rozwiązania wydają się być wątpliwej jakości.
-
-TODO: może rozwinąć to
+Projekt ma za zadanie przeprowadzić ewaluację dostępnych rozwiązań detekcji sztucznie wygenerowanej muzyki. Badania będą prowadzone pod kątem wyjaśnialności otrzymywanych predykcji w celu analizy jakości obecnych metod na podstawie dotychczasowych przemyśleń oraz wniosków [1]_[2]_. W ramach powyższej pracy wybrano szereg podejść - modele Random Forest, SVM i kNN [3]_; model typu Transformer *SONICS* [5]_ oraz sieć konwolucyjna zespołu *Deezer* [4]_. Wszystkie z wymienionych opcji zostały zastosowane w celu klasyfikacji piosenek wygenerowanych przez ogólnodostępne platformy generujące muzykę, takie jak *Suno*, *Udio* czy też *Riffusion*.
 
 ====================
 Wykorzystane technologie / Stack technologiczny
@@ -63,3 +60,10 @@ Plan pracy
 #. 26.01 - 01.02
   * Przygotowanie prezentacji
   * Prezentacja 28.01
+
+Bibliografia
+.. [1] Afchar, Darius, et al. A Fourier Explanation of AI-music Artifacts. ISMIR 2025 (Best Paper). https://arxiv.org/abs/2506.19108
+.. [2] Sroka, Tomasz, et al. Evaluating Fake Music Detection Performance Under Audio Augmentations. ISMIR 2025 Late-Breaking Demo. https://arxiv.org/pdf/2507.10447
+.. [3] Cros Vila, Laura, et al. (2025). The AI Music Arms Race: On the Detection of AI-Generated Music. Transactions of the International Society for Music Information Retrieval (TISMIR) 8(1). https://transactions.ismir.net/8/volume/8/issue/1
+.. [4] Afchar, Darius; Meseguer-Brocal, Gabriel; Hennequin, Romain (2024). Detecting Music Deepfakes is Easy but Actually Hard. arXiv. https://arxiv.org/abs/2405.04181
+.. [5] Rahman, M. A., Hakim, Z. I. A., Sarker, N. H., Paul, B., & Fattah, S. A. (2024). SONICS: Synthetic Or Not--Identifying Counterfeit Songs. arXiv preprint arXiv:2408.14080.
