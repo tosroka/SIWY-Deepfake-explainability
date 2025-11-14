@@ -19,10 +19,14 @@ def get_split(split, embedding, folders):
     files = []
     y = []
     for folder in folders:
-        with open(f'/data/{folder}/{split}.txt', 'r') as f:
+        with open(f'data/{folder}/{split}.txt', 'r') as f:
             folder_files = f.read().splitlines()
-        files.extend([f'/data/{folder}/audio/embeddings/{embedding}/{file}.npy' for file in folder_files])
-        y.extend([folder] * len(folder_files))
+        file_paths = [f'data/{folder}/sample/.suno/embeddings/{embedding}/suno-{file}.npy' for file in folder_files]
+        # remove nonexisting files
+        import os
+        existing_files = [f for f in file_paths if os.path.exists(f)]
+        files.extend(existing_files)
+        y.extend([folder] * len(existing_files))
     
     X = load_embeddings(files)
     y = np.array(y)

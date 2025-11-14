@@ -13,10 +13,10 @@ if not os.path.exists('lastfm_dataset_2020.db'):
 # %%
 db_file_path = 'lastfm_dataset_2020.db'
 
-if not os.path.exists('/data/lastfm/audio'):
-    os.makedirs('/data/lastfm/audio')
-if not os.path.exists('/data/lastfm/metadata'):
-    os.makedirs('/data/lastfm/metadata')
+if not os.path.exists('data/lastfm/audio'):
+    os.makedirs('data/lastfm/audio')
+if not os.path.exists('data/lastfm/metadata'):
+    os.makedirs('data/lastfm/metadata')
 
 # Connect to the database
 conn = sqlite3.connect(db_file_path)
@@ -36,7 +36,7 @@ import requests
 import re
 import subprocess
 
-def download_full_song(row, out_dir='/data/lastfm/audio'):
+def download_full_song(row, out_dir='data/lastfm/audio'):
     # Check if the mp3 file already exists
     if os.path.join(out_dir, f'{row[0]}.mp3') in glob.glob(os.path.join(out_dir, '*.mp3')):
         return None
@@ -80,7 +80,7 @@ def download_full_song(row, out_dir='/data/lastfm/audio'):
 import random
 random.seed(0)
 random.shuffle(rows)
-rows = rows[:100000]
+rows = rows[:150]
 
 for row in rows:
     # download full song
@@ -93,5 +93,5 @@ for row in rows:
     row.append(youtube_url)
     columns.append('youtube_url')
     # save the row as json file in 'metadata'
-    with open(f'/data/lastfm/metadata/{row[0]}.json', 'w') as f:
+    with open(f'data/lastfm/metadata/{row[0]}.json', 'w') as f:
         json.dump(dict(zip(columns, row)), f)
