@@ -1,0 +1,5 @@
+*.mp3
+*.npy
+models_and_scaler.pkl
+ckpt/clap/music_audioset_epoch_15_esc_90.14.pt
+__pycache__

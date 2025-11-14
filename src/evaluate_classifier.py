@@ -7,7 +7,33 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import classification_report
+
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from utils.data_utils import get_split
+
+def get_all_files(embedding, folders):
+    """
+    Loads all npy embeddings and their file paths from the given dataset and folders.
+    Returns:
+        X_sample: np.ndarray of embeddings
+        sample_files: list of file paths
+    """
+    X_sample = []
+    sample_files = []
+    for folder in folders:
+        folder_path = os.path.join('data', folder, 'audio', 'embeddings', embedding)
+        if not os.path.exists(folder_path):
+            continue
+        for file in os.listdir(folder_path):
+            if file.endswith('.npy'):
+                X_sample.append(np.load(os.path.join(folder_path, file)))
+                sample_files.append(os.path.join(folder_path, file))
+    X_sample = np.array(X_sample)
+    return X_sample, sample_files
+
+
 
 def load_ircamplify_results(folders):
     true_class = []
@@ -15,7 +41,7 @@ def load_ircamplify_results(folders):
     is_ai = []
     confidence = []
     for folder in folders:
-        folder_path = f'/data/ircamplify_results/{folder}'
+        folder_path = f'data/ircamplify_results/{folder}'
         for filename in os.listdir(folder_path):
             if filename.endswith('.json'):
                 with open(os.path.join(folder_path, filename), 'r') as f:
@@ -92,12 +118,13 @@ def get_results_all(folders = ['suno', 'udio', 'lastfm']):
     # Load sample data
     if 'boomy' in folders:
         without_boomy = [folder for folder in folders if folder != 'boomy']
-        X_sample, y_sample, sample_files = get_split('sample', 'clap-laion-music', without_boomy)
+        X_sample, sample_files = get_split('sample', 'clap-laion-music', without_boomy)
         X_boomy, y_boomy, sample_files_boomy = get_split('sample', 'clap-laion-music', ['boomy'])
         X_sample = np.concatenate((X_sample, X_boomy))
         sample_files = sample_files + sample_files_boomy
     else:
-        X_sample, y_sample, sample_files = get_split('sample', 'clap-laion-music', folders)
+        # X_sample, sample_files = get_split('sample', 'clap-laion-music', folders)
+        X_sample, sample_files = get_all_files('clap-laion-music', folders) # get all npy emneddings from `audio` subdir
     
     X_sample_scaled = scaler.transform(X_sample)
 
@@ -119,7 +146,7 @@ def get_results_all(folders = ['suno', 'udio', 'lastfm']):
         return classifiers_results
 
 # Function to print classification report in LaTeX format
-def print_classification_report_latex(data):
+def print_classification_report_latex(data, folders):
     y_true = data['true_class']
     y_pred_svm_parent = data['svm_pred_parent']
     y_pred_rf_parent = data['rf_pred_parent']
@@ -226,7 +253,7 @@ def print_classification_report_latex(data):
         detailed_table += f"\\multirow{{3}}{{*}}{{{classifier}}} "
 
         # Loop through each category (LastFM, Suno, Udio)
-        for idx, category in enumerate(['lastfm', 'suno', 'udio']):
+        for idx, category in enumerate(folders):
             if idx > 0:  # Add a new row for categories other than the first
                 detailed_table += " & "
             precision = report[category]['precision']
@@ -251,4 +278,6 @@ if __name__ == "__main__":
 
     data = get_results_all(folders)
 
-    print_classification_report_latex(data)
+    print(data)
+
+    #print_classification_report_latex(data, folders)
