@@ -1,0 +1,6 @@
+numpy
+scipy
+librosa>=0.8
+numba>=0.52.0
+scikit-learn>=0.18
+regressors
