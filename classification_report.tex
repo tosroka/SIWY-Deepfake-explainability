@@ -4,8 +4,8 @@
 Predicted & False & True \\
 True &  &  \\
 \midrule
-False & 0.991 & 0.009 \\
-True & 0.002 & 0.998 \\
+False & 0.996 & 0.004 \\
+True & 0.003 & 0.997 \\
 \bottomrule
 \end{tabular}
 \caption{Normalized Confusion Matrix for SVM Classifier (AI vs non-AI)}
@@ -17,8 +17,8 @@ True & 0.002 & 0.998 \\
 Predicted & False & True \\
 True &  &  \\
 \midrule
-False & 0.984 & 0.016 \\
-True & 0.006 & 0.994 \\
+False & 0.989 & 0.011 \\
+True & 0.005 & 0.995 \\
 \bottomrule
 \end{tabular}
 \caption{Normalized Confusion Matrix for RF Classifier (AI vs non-AI)}
@@ -30,8 +30,8 @@ True & 0.006 & 0.994 \\
 Predicted & False & True \\
 True &  &  \\
 \midrule
-False & 0.959 & 0.041 \\
-True & 0.022 & 0.978 \\
+False & 0.951 & 0.049 \\
+True & 0.023 & 0.977 \\
 \bottomrule
 \end{tabular}
 \caption{Normalized Confusion Matrix for KNN Classifier (AI vs non-AI)}
@@ -39,28 +39,28 @@ True & 0.022 & 0.978 \\
 
 \begin{table}[ht]\centering\begin{tabular}{lcccc}\hline
 Classifier & Precision & Recall & F1-Score & Accuracy \\ \hline
-SVM & 0.996 & 0.998 & 0.997 & 0.996 \\ \hline 
-RF & 0.992 & 0.994 & 0.993 & 0.991 \\ \hline 
-KNN & 0.979 & 0.978 & 0.979 & 0.972 \\ \hline 
+SVM & 0.998 & 0.997 & 0.997 & 0.997 \\ \hline 
+RF & 0.995 & 0.995 & 0.995 & 0.993 \\ \hline 
+KNN & 0.976 & 0.977 & 0.977 & 0.969 \\ \hline 
 \end{tabular}\caption{Parent-level classification results (AI vs. non-AI)}\label{tab:parent_results}\end{table}
 \begin{table}[ht]\centering\begin{tabular}{lcccc}\hline
 Classifier & Precision & Recall & F1-Score & Accuracy \\ \hline
-SVM & 0.864 & 0.787 & 0.766 & 0.787 \\ \hline 
-RF & 0.952 & 0.948 & 0.948 & 0.948 \\ \hline 
-KNN & 0.853 & 0.817 & 0.806 & 0.817 \\ \hline 
+SVM & 0.885 & 0.832 & 0.822 & 0.832 \\ \hline 
+RF & 0.949 & 0.945 & 0.945 & 0.945 \\ \hline 
+KNN & 0.854 & 0.823 & 0.813 & 0.823 \\ \hline 
 \end{tabular}\caption{Child-level results (Macro-Averaged)}\label{tab:child_macro}\end{table}
 \begin{table}[ht]\centering\begin{tabular}{llccc}\hline
 Classifier & Category & Precision & Recall & F1-score \\ \hline
-\multirow{3}{*}{SVM} & Suno & 0.984 & 0.379 & 0.548 \\ 
-& Udio & 0.613 & 0.992 & 0.758 \\ 
-& Lastfm & 0.996 & 0.991 & 0.993 \\ 
+\multirow{3}{*}{SVM} & Suno & 0.992 & 0.509 & 0.672 \\ 
+& Udio & 0.668 & 0.992 & 0.798 \\ 
+& Lastfm & 0.994 & 0.996 & 0.995 \\ 
 \hline 
-\multirow{3}{*}{RF} & Suno & 0.986 & 0.885 & 0.932 \\ 
-& Udio & 0.882 & 0.976 & 0.926 \\ 
-& Lastfm & 0.989 & 0.984 & 0.986 \\ 
+\multirow{3}{*}{RF} & Suno & 0.981 & 0.872 & 0.923 \\ 
+& Udio & 0.876 & 0.975 & 0.923 \\ 
+& Lastfm & 0.991 & 0.989 & 0.990 \\ 
 \hline 
-\multirow{3}{*}{KNN} & Suno & 0.680 & 0.984 & 0.804 \\ 
-& Udio & 0.922 & 0.509 & 0.656 \\ 
-& Lastfm & 0.957 & 0.959 & 0.958 \\ 
+\multirow{3}{*}{KNN} & Suno & 0.692 & 0.983 & 0.812 \\ 
+& Udio & 0.914 & 0.534 & 0.674 \\ 
+& Lastfm & 0.955 & 0.951 & 0.953 \\ 
 \hline 
 \end{tabular}\caption{Detailed child-level classification results}\label{tab:child_detailed}\end{table}

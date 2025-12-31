@@ -116,7 +116,7 @@ def main(args: Arguments):
                     downloaded_ids.append(audio_id)
 
         if downloaded_ids:
-            unique_ids = list(set(downloaded_ids))
+            unique_ids = [f.stem for f in output_dir.glob("*.mp3")]
 
             train_ids = []
             test_ids = []
