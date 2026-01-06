@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divJ7HFG98ROLPHXXU"></div>
+        <div class="lime top_div" id="top_divZK6PW2OM8GCQTAX"></div>
         
         <script>
-        var top_div = d3.select('#top_divJ7HFG98ROLPHXXU').classed('lime top_div', true);
+        var top_div = d3.select('#top_divZK6PW2OM8GCQTAX').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["Real", "AI"], [0.57, 0.43]);
+            var pp = new lime.PredictProba(pp_svg, ["Real", "AI"], [0.75, 0.25]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["Real", "AI"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["embed_419 > -0.00", -0.027028414088559778], ["embed_69 <= 0.00", -0.024122972374576383], ["embed_46 > -0.02", -0.023654475577205798], ["embed_93 > -0.01", -0.022217321841403057], ["embed_477 <= 0.00", -0.01856432565469288], ["embed_122 > 0.05", -0.01673151516259383], ["embed_496 <= -0.01", -0.014639974795940322], ["embed_0 > 0.01", -0.01422474314665502], ["embed_367 > 0.01", -0.012927753402644845], ["embed_272 > 0.01", -0.012008788612210405]], 1, exp_div);
+                exp.show([["embed_299 <= -0.02", -0.04914756226736272], ["embed_60 > 0.05", -0.04066939641297667], ["embed_365 <= -0.03", -0.03238913506505283], ["embed_199 > 0.02", -0.03058892519163559], ["embed_47 > 0.01", -0.02929708206559178], ["embed_46 > 0.00", -0.02741108710653916], ["embed_352 <= -0.04", -0.027346460759850356], ["embed_401 > 0.02", -0.02492575972528614], ["embed_148 <= -0.04", -0.02445220424966237], ["embed_93 > -0.00", -0.018916091806166588]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["embed_419", "0.03", -0.027028414088559778], ["embed_69", "-0.07", -0.024122972374576383], ["embed_46", "0.01", -0.023654475577205798], ["embed_93", "0.04", -0.022217321841403057], ["embed_477", "-0.07", -0.01856432565469288], ["embed_122", "0.06", -0.01673151516259383], ["embed_496", "-0.05", -0.014639974795940322], ["embed_0", "0.02", -0.01422474314665502], ["embed_367", "0.02", -0.012927753402644845], ["embed_272", "0.07", -0.012008788612210405]], 1, raw_div);
+            exp.show_raw_tabular([["embed_299", "-0.02", -0.04914756226736272], ["embed_60", "0.09", -0.04066939641297667], ["embed_365", "-0.04", -0.03238913506505283], ["embed_199", "0.03", -0.03058892519163559], ["embed_47", "0.05", -0.02929708206559178], ["embed_46", "0.03", -0.02741108710653916], ["embed_352", "-0.05", -0.027346460759850356], ["embed_401", "0.07", -0.02492575972528614], ["embed_148", "-0.05", -0.02445220424966237], ["embed_93", "0.01", -0.018916091806166588]], 1, raw_div);
         
         </script>
         </body></html>
