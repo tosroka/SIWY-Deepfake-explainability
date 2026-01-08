@@ -7,3 +7,5 @@ __pycache__
 data/*/audio/*
 data/*/essentia_features/*
 data/*/metadata/*
+AudioXgen/data_embeddings/*
+AudioXgen/models/*
