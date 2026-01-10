@@ -49,7 +49,20 @@ with torch.no_grad():
     y_pred = model(X_test)
     _, predicted = torch.max(y_pred, dim=1)
     accuracy = (predicted == y_test).float().mean()
+    # true positive
+    tp = ((predicted == 1) & (y_test == 1)).sum().float()
+    # false positive
+    fp = ((predicted == 1) & (y_test == 0)).sum().float()
+    # false negative
+    fn = ((predicted == 0) & (y_test == 1)).sum().float()
+    epsilon = 1e-7
+    precision = tp / (tp + fp + epsilon)
+    recall = tp / (tp + fn + epsilon)
+
+    f1 = 2 * (precision * recall) / (precision + recall + epsilon)
+
     print(f"Test Accuracy: {accuracy.item():.4f}")
+    print(f"Test F1 Score: {f1.item():.4f}")
 
 y_test_m = predicted.clone()
 
