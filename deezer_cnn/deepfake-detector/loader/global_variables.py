@@ -1,0 +1,8 @@
+HOME = "/net/pr2/projects/plgrid/plggailpwmm/tsroka/deepfake_detector_home"
+POS_DB_PATH = HOME+"/fma_rebuilt_medium/resampled"
+NEG_DB_PATH = HOME+"/fma_rebuilt_medium"
+CODEC_DB_PATH = HOME+"/fma_codec/"
+WEIGHTS_PATH = "/net/people/plgrid/plgtsroka/SIWY/deepfake-detector"
+RESULT_PATH = HOME+"/deepfake/results/final"
+SPLIT_PATH = HOME+"/deepfake/data/dataset_medium_split.npy"
+CONF_PATH = HOME+"/deepfake/conf"
