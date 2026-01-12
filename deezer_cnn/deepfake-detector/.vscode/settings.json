@@ -1,0 +1,6 @@
+{
+    // .. any other settings
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+}

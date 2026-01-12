@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib
 from pathlib import Path
 
+EXCERPT_LENGTH = 10 # 10 seconds
+
 def make_gradcam_heatmap(img_array, model, last_conv_layer_name, pred_index=None):
     # First, we create a model that maps the input image to the activations
     # of the last conv layer as well as the output predictions
@@ -64,18 +66,44 @@ def save_and_display_gradcam(img_float: np.ndarray, heatmap_float: np.ndarray, c
     superimposed_img = jet_heatmap * alpha + img
     superimposed_img = keras.utils.array_to_img(superimposed_img)
 
+    height = superimposed_img.size[1]
+    width = superimposed_img.size[0]
+
+    plt.figure()
+    plt.imshow(superimposed_img)
+    plt.axis('on')
+
+    # 1. FIX X-TICKS (Time: 0 to 10s)
+    x_ticks = np.linspace(0, width, 5)
+    x_labels = [f"{int(val)}s" for val in np.linspace(0, 10, 5)] # Map to 0-10
+    plt.xticks(x_ticks, labels=x_labels)
+    plt.xlabel("Time (s)")
+
+    # 2. FIX Y-TICKS (Frequency: 16kHz at top, 4kHz at bottom)
+    # Note: imshow puts 0 at the top. 
+    # To have 16kHz at the top and 4kHz at bottom:
+    y_ticks = np.linspace(0, height, 5)
+    y_labels = [f"{int(val)}kHz" for val in np.linspace(16, 4, 5)] # Reverse the range
+    plt.yticks(y_ticks, labels=y_labels)
+    plt.ylabel("Frequency (kHz)")
+
+    plt.savefig(cam_path)
+    plt.close()
+
     # Save the superimposed image
-    superimposed_img.save(cam_path)
+    #superimposed_img.save(cam_path)
 
     # Display Grad CAM
     # display(Image(cam_path))
 
+import numpy as np
 
 def run_grad_cam_on_image(input_image: np.ndarray, model, last_conv_name: str, output_dir: Path):
     # input image is (64, 743, 1), 64 comes from the "audio_slice": 0,78 in global config
     # since its (64,743,1), we need to iterate over 64x64 patches:
 
     outdir = Path(output_dir)
+    print("outputting to ",outdir)
     outdir.mkdir(exist_ok=True, parents=True)
 
     heatmaps = []
@@ -109,6 +137,8 @@ def run_grad_cam_on_image(input_image: np.ndarray, model, last_conv_name: str, o
     input_image = np.repeat(input_image, 3, axis=-1)
     # map to 0,1 range
     input_image = (input_image - np.min(input_image)) / (np.max(input_image) - np.min(input_image))
+    # rotate input_image 90 degrees
+    input_image = np.rot90(input_image)
     plt.imsave(outdir / "spectrogram.png", input_image, cmap='gray')
 
     # merge the individual heatmaps into one image, one patch gets turned into a smaller precision heatmap,
@@ -126,6 +156,7 @@ def run_grad_cam_on_image(input_image: np.ndarray, model, last_conv_name: str, o
         merged_heatmap[row*heatmap_size:(row+1)*heatmap_size, col*heatmap_size:(col+1)*heatmap_size] = heatmap
 
     merged_heatmap = (merged_heatmap - np.min(merged_heatmap)) / (np.max(merged_heatmap) - np.min(merged_heatmap) + 1e-8)
+    merged_heatmap = np.rot90(merged_heatmap)
     # save merged heatmap to image
     plt.imsave(outdir / "merged_heatmap.png", merged_heatmap, cmap='jet')
     save_and_display_gradcam(input_image, merged_heatmap, cam_path=outdir/"gradcam.png")
