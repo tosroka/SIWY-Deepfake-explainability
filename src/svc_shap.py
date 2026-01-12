@@ -194,7 +194,7 @@ if __name__ == "__main__":
     y_true = data['true_parent']
     y_pred = data['svm_pred_parent']
 
-    print(classification_report(y_true, y_pred))
+    print(classification_report(y_true, y_pred, output_dict=True))
 
     log.info("Inspecting SVC")
 
