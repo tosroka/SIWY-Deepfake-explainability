@@ -23,7 +23,7 @@ def train_lime(model: SVC, data: np.ndarray, true_class: np.ndarray):
         class_names=["AI", "not-AI"],
         mode='classification'
     )
-    for i in range(len(train_data)):
+    for i in range(5):
         exp: Explanation = explainer.explain_instance(
             data_row=test_data[i],
             predict_fn=model.predict_proba,
@@ -33,6 +33,7 @@ def train_lime(model: SVC, data: np.ndarray, true_class: np.ndarray):
             print(f"  {feature}: {weight}")
         fig = exp.as_pyplot_figure()
         plt.show()
+        plt.savefig(f'figures/svm/lime_explanation_instance_{i}.png')
 
 
 def get_all_files(embedding, folders):

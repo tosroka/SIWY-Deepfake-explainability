@@ -15,6 +15,7 @@ def _inspect_SVC(model, X_background: np.ndarray, X_test, kmeans, decision_fun):
         print("kmeans size",X_background_explainer.data.shape)
     else:
         X_background_explainer = X_background[:50]
+    print("Creating explainer")
     explainer = shap.KernelExplainer(
         decision_fun,
         X_background_explainer  # ~50 representative samples
@@ -36,16 +37,22 @@ def inspect_SVC(model, X_background, X_test, kmeans=False):
     plt.title("SHAP values for decision boundary distance")
     shap.summary_plot(shap_values, X_test, plot_type="bar")
 def inspect_SVC_proba(model, X_background, X_test, kmeans=False):
+    print("X_background shape:",X_background.shape)
+    print("X_test shape:",X_test.shape)
     shap_values = _inspect_SVC(model, X_background, X_test, kmeans, model.predict_proba)
 
+    print("SHAP values shape:",shap_values.shape)
+
     plt.title("SHAP values for AI class")
-    shap.summary_plot(shap_values[:,0], X_test)
+    shap.summary_plot(shap_values[:,:,0], X_test)
     plt.show()
+    plt.savefig("figures/svc/shap_svc_proba_summary_ai.png")
 
     plt.title("SHAP values for Non-AI class")
 
-    shap.summary_plot(shap_values[:,1], X_test)
+    shap.summary_plot(shap_values[:,:,1], X_test)
     plt.show()
+    plt.savefig("figures/svc/shap_svc_proba_summary_nonai.png")
 if __name__ == "__main__":
     feature_names = None
     with open('models_and_scaler.pkl', 'rb') as f:

@@ -156,7 +156,7 @@ def get_results_all(folders, X_sample_scaled, sample_files, models):
         return classifiers_results
 
 # Example usage
-obstruction_test = True
+obstruction_test = False
 kmeans = True # get average of training samples
 
 if __name__ == "__main__":
@@ -172,6 +172,8 @@ if __name__ == "__main__":
     log.info("Loading models and samples")
     X_sample_scaled, sample_files, models= get_model_and_scaled_samples()
     a = -5
+    # what happens if we replace important features?
+    # answer: nothing, or the sample becomes heavily out of distribution and breaks the model
     if obstruction_test:
         X_sample_scaled[:,356] = a
         X_sample_scaled[:,399] = a
@@ -181,7 +183,7 @@ if __name__ == "__main__":
     AI_classifier: SVC = models["svc"].hierarchy_.nodes["AI"]["classifier"]
     positive_index = np.where(AI_classifier.classes_ == 1)[0]
 
-    print(data)
+    #print(data)
 
     mapping = {
         'suno': 'AI',
@@ -194,10 +196,10 @@ if __name__ == "__main__":
     y_true = data['true_parent']
     y_pred = data['svm_pred_parent']
 
-    print(classification_report(y_true, y_pred, output_dict=True))
+    #print(classification_report(y_true, y_pred, output_dict=True))
 
     log.info("Inspecting SVC")
 
-    inspect_SVC_proba(AI_classifier, X_sample_scaled[:-10], X_sample_scaled[-10:], kmeans)
+    inspect_SVC_proba(AI_classifier, X_sample_scaled[:-10][:50], X_sample_scaled[-10:], kmeans)
 
     #print_classification_report_latex(data, folders)
