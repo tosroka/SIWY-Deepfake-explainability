@@ -1,5 +1,9 @@
+BACKGROUND_COLOR = (255, 255, 255)
 NPY_FILE = "./songs/song_labels.npy"
 PLOTS_DIR = "./plots"
 PROCESSED_DIR = "./caches"
 SONGS_DIR = "./songs"
 TARGET_SR = 16000
+TEST_SET_EXPORT_DIR = "./test_set_export"
+TEST_SET_SIZE = 600
+TILE_SIZE = (800, 600)
