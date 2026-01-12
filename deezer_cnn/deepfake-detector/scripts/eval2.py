@@ -125,7 +125,7 @@ else:
 
 # model.m.summary()
 #print("loading model from",os.path.join(WEIGHTS_PATH, args.weights + args.encoder))
-model.m = tf.keras.models.load_model('/net/people/plgrid/plgtsroka/SIWY/deepfake-detector/specnn_amplitude')
+model.m = tf.keras.models.load_model('/net/people/plgrid/plgtsroka/SIWY/SIWY-Deepfake-explainability/deezer_cnn/deepfake-detector/specnn_amplitude/')
 #model.m.load_weights( os.path.join(WEIGHTS_PATH, args.weights + args.encoder) )
 print("loaded")
 #if not ENCODER:
@@ -144,7 +144,7 @@ print("loaded")
 print("compiling")
 model.m.compile(
     optimizer=keras.optimizers.Adam(learning_rate=1e-3),
-    metrics = { 'deepfake': keras.metrics.BinaryAccuracy() },
+    metrics = { 'deepfake': [keras.metrics.BinaryAccuracy(), tf.keras.metrics.Precision(), tf.keras.metrics.Recall()] },
 )
 print("recompiled!")
 scores = {}
