@@ -1,3 +1,16 @@
+# Audio XAI
+
+Experimenet scripts for each model:
+* kNN - `src/knn_explainability.ipynb`
+* RandomForest -  `src/rf_explainability.ipynb`
+* SVM - `src/svc_shap.py` and `src/svc_lime.py`
+* CNN - `deezer_cnn/grad_cam.sh` (refer to the inner `README.md`)
+* AudioXgen - `AudioXgen/audio_explanation_generation.py` (refer to the inner `README.md`)
+
+Figures for the first 3 models are in `figures/<model_name>`, the remaining ones in their respective folders.
+
+
+
 # Design proposal
 
 Projekt ma za zadanie przeprowadzić ewaluację dostępnych rozwiązań detekcji sztucznie wygenerowanej muzyki. Badania będą prowadzone pod kątem wyjaśnialności otrzymywanych predykcji w celu analizy jakości obecnych metod na podstawie dotychczasowych przemyśleń oraz wniosków [[1](#ref-1)] [[2](#ref-2)]. W ramach niniejszej pracy wybrano szereg podejść - modele Random Forest, SVM i kNN [[3](#ref-3)]; model typu Transformer _SONICS_ [[5](#ref-5)] oraz sieć konwolucyjna zespołu _Deezer_ [[4](#ref-4)]. Wszystkie z wymienionych opcji zostały zastosowane w celu klasyfikacji piosenek wygenerowanych przez ogólnodostępne platformy generujące muzykę, takie jak _Suno_, _Udio_ czy też _Riffusion_. Kierując się podejściem z pracy [[6](#ref-6)] przeprowadzone zostaną eksperymenty na dostępnych modelach.
