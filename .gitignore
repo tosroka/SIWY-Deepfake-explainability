@@ -9,3 +9,5 @@ data/*/audio/*
 data/*/essentia_features/*
 data/*/metadata/*
 .DS_Store
+AudioXgen/data_embeddings/*
+AudioXgen/models/*
