@@ -1,125 +1,87 @@
-# AI Music Detection
-This is the official repository for the paper Detecting AI-Generated Music
+# Design proposal
 
-## Table of Contents
-- [Installation](#installation)
-- [Dataset Preparation](#dataset-preparation)
-- [Usage](#usage)
-- [File Descriptions](#file-descriptions)
-- [Contributing](#contributing)
+Projekt ma za zadanie przeprowadzić ewaluację dostępnych rozwiązań detekcji sztucznie wygenerowanej muzyki. Badania będą prowadzone pod kątem wyjaśnialności otrzymywanych predykcji w celu analizy jakości obecnych metod na podstawie dotychczasowych przemyśleń oraz wniosków [[1](#ref-1)] [[2](#ref-2)]. W ramach niniejszej pracy wybrano szereg podejść - modele Random Forest, SVM i kNN [[3](#ref-3)]; model typu Transformer _SONICS_ [[5](#ref-5)] oraz sieć konwolucyjna zespołu _Deezer_ [[4](#ref-4)]. Wszystkie z wymienionych opcji zostały zastosowane w celu klasyfikacji piosenek wygenerowanych przez ogólnodostępne platformy generujące muzykę, takie jak _Suno_, _Udio_ czy też _Riffusion_. Kierując się podejściem z pracy [[6](#ref-6)] przeprowadzone zostaną eksperymenty na dostępnych modelach.
 
-## Installation
+W ramach rozszerzenia projektu wykonane zostanie również porównanie, czy podstawowe modele klasyfikacji [[3](#ref-3)] są funkcjonalnie podobne do IRCAM Amplify.
 
-Clone the repository and install dependencies:
+## Wykorzystane technologie / Stack technologiczny
 
-```bash
-git clone https://github.com/lcrosvila/ai-music-detection.git
-cd ai-music-detection
-pip install -r requirements.txt
-```
+- Podstawowy stack machine learningowy: python, numpy, matplotlib/seaborn lub plotly
+- Dla keżdego z modeli wykorzystamy rózne techniki wyjaśnialności:
+- RF, SVM i kNN [[3](#ref-3)] - SHAP, LIME
+- CNN [[4](#ref-4)] - Grad-cam
+- SONICS (transformer) [[5](#ref-5)] - analiza map samoatencji (self-attention)
 
-## Dataset Preparation
+## Plan pracy
 
-You can find the song IDs for each split in the `data/` directory. To access the corresponding songs, use the following URLs by replacing `{id}` with the actual song ID:
+1. **03.11 - 09.11**
 
-- **Suno**: [`https://suno.com/song/{id}`](https://suno.com/song/{id})  
-- **Udio**: [`https://www.udio.com/songs/{id}`](https://www.udio.com/songs/{id})
+   - Przeczytanie literatury, odnalezienie istniejących rozwiązań
+   - Zapoznianie się z narzędziami do wyjaśnialności, które można zastosować
+   - Design proposal - deadline 05.11, feedback 07.11 (piątek)
 
-⚠️ Some of the URLs might not work, as some of the songs have been taken down from the platforms.
-  
-### Download prepared dataset
+2. **10.11 - 16.11**
 
-You can download the dataset from: [TODO]
+   - Głębsza analiza literatury i napisanie szerszych wniosków
+   - Przygotowanie trzech wstępnych eksperymentów na modelach dostępnych w repozytorium <https://github.com/lcrosvila/ai-music-detection>
+   - Prezentacja prototypu (deadline do 14.11)
 
-You can collect your own and calculate the Essentia descriptors and CLAP embeddings.
+3. **17.11 - 23.11**
 
-### Getting the MSD dataset
+   - Rozszerzenie eksperymentów na pozostałe modele
 
-To get the subset of MSD songs:
+4. **24.11 - 30.11**
 
-```bash
-python scripts/get_msd.py
-```
+   - Kontynuacja
 
-### Feature Extraction
-To extract features using Essentia:
+5. **01.12 - 07.12**
 
-```bash
-python scripts/essentia_features.py
-```
+   - Zintegrowanie zestawów danych oraz ekstrakcja wniosków z uzyskanych opisów wyjaśnialności modeli pod kątem uchwycenia elementów wspólnych dla piosenek wygenerowanych za pomocą modeli generatywnych
 
-### Embedding Generation
-To use CLAP encoder for conditioning music generation, you have to prepare a pretrained checkpoint file of CLAP.
+6. **08.12 - 14.12**
 
-1. Download a pretrained CLAP checkpoint trained with music dataset (`music_audioset_epoch_15_esc_90.14.pt`)
-from the [LAION CLAP repository](https://github.com/LAION-AI/CLAP?tab=readme-ov-file#pretrained-models).
-2. Store the checkpoint file to a directory of your choice. (e.g. `./ckpt/clap/music_audioset_epoch_15_esc_90.14.pt`)
+   - Kontynuacja
 
-You can then generate embeddings:
+7. **15.12 - 21.12**
 
-```bash
-python get_embed.py -m clap-laion-music -d /data/suno/audio /data/udio/audio -f /path/to/model_file.pt
-```
+   - Podsumowanie wniosków, wizualizacja otrzymanych rozwiązań pod kątem wyjaśnialności uzyskanego wyniku względem poszczególnych generatorów piosenek
 
-## Usage
+8. **22.12 - 28.12**
 
-### Analyze dataset features
+   - Święta, przerwa lub nadgonienie opóźnień
 
-You can perform feature analysis of the Essentia descriptors:
+9. **29.12 - 4.01**
 
-```bash
-python notebooks/feature_importance.ipynb
-```
+   - Przygotowanie artykułu naukowego
 
-And plot the UMAP:
+10. **05.01 - 11.01**
 
-```bash
-python notebooks/umap_visualization.ipynb
-```
+    - Kontynuacja
 
-### Train the Hierarchical classifiers
+11. **12.01 - 18.01**
 
-The pre-trained models can be found in: [models_and_scaler.pkl](https://kth-my.sharepoint.com/:u:/g/personal/lcros_ug_kth_se/ETAnWpSVIVNItJPSWD8g3bsBs4oDOnHiwa7eRZRXVqT0zw?e=gvSJv4)
+    - Przygotowanie filmiku
+    - Deadline złożenia projektu 15.01 (czwartek)
 
-Alternatively, train the hiererchical classifiers and save them:
+12. **19.01 - 25.01**
 
-```bash
-python src/hierarchical_classifier.py
-```
+    - Przygotowanie prezentacji
 
-The models and scalers are saved in `artifacts/models_and_scaler.pkl` and the training classification results in `artifacts/classification_results.pkl`.
+13. **26.01 - 01.02**
 
-They can then be evaluated:
+    - Przygotowanie prezentacji
+    - Prezentacja 28.01
 
-```bash
-python src/evaluate_classifier.py
-```
+## Bibliografia
 
-Note: If the folder `/data/ircamplify_results/` exists, the predictions of the classifiers will be compared against those from Ircamplify (see `scripts
-/ircamplify.py` to query the Ircamplify AI Detector API).
+<a id="ref-1"></a>**[1]** Afchar, Darius, et al. A Fourier Explanation of AI-music Artifacts. ISMIR 2025 (Best Paper). <https://arxiv.org/abs/2506.19108>
 
-Update: We have added the script to compare against [SONICS](https://github.com/awsaf49/sonics) (see `scripts/sonics_test.py`).
+<a id="ref-2"></a>**[2]** Sroka, Tomasz, et al. Evaluating Fake Music Detection Performance Under Audio Augmentations. ISMIR 2025 Late-Breaking Demo. <https://arxiv.org/pdf/2507.10447>
 
-### Performance against transformed audios
+<a id="ref-3"></a>**[3]** Cros Vila, Laura, et al. (2025). The AI Music Arms Race: On the Detection of AI-Generated Music. Transactions of the International Society for Music Information Retrieval (TISMIR) 8(1). <https://transactions.ismir.net/8/volume/8/issue/1>
 
-Transform the audios:
+<a id="ref-4"></a>**[4]** Afchar, Darius; Meseguer-Brocal, Gabriel; Hennequin, Romain (2024). Detecting Music Deepfakes is Easy but Actually Hard. arXiv. <https://arxiv.org/abs/2405.04181>
 
-```bash
-python scripts/transform_audios.py
-```
+<a id="ref-5"></a>**[5]** Rahman, M. A., Hakim, Z. I. A., Sarker, N. H., Paul, B., & Fattah, S. A. (2024). SONICS: Synthetic Or Not--Identifying Counterfeit Songs. arXiv preprint arXiv:2408.14080.
 
-And evaluate the classifiers:
-
-```bash
-python src/analyze_audio_transformations.py
-```
-
-To see the results:
-
-```bash
-python notebooks/results_audio_transformation.ipynb
-```
-
-## Contributing
-
-Contributions are welcome. Please open an issue or submit a pull request.
+<a id="ref-6"></a>**[6]** Li, Y., Sun, Q., Li, H., Specia, L., & Schuller, B. W. (2024). Detecting Machine-Generated Music with Explainability--A Challenge and Early Benchmarks. arXiv preprint arXiv:2412.13421.<https://arxiv.org/abs/2412.13421>

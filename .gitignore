@@ -1,4 +1,5 @@
 *.mp3
+*.wav
 *.npy
 *.jsonl
 models_and_scaler.pkl
@@ -7,3 +8,4 @@ __pycache__
 data/*/audio/*
 data/*/essentia_features/*
 data/*/metadata/*
+.DS_Store
